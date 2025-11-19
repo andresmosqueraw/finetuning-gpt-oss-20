@@ -53,9 +53,12 @@ Visit our docs for all our [model uploads](https://docs.unsloth.ai/get-started/a
 We're about to demonstrate the power of the new OpenAI GPT-OSS 20B model through a finetuning example. To use our `MXFP4` inference example, use this [notebook](https://colab.research.google.com/github/unslothai/notebooks/blob/main/nb/GPT_OSS_MXFP4_(20B)-Inference.ipynb) instead.
 """
 
+import time
+start_time_total = time.time()
+
 from unsloth import FastLanguageModel
 import torch
-max_seq_length = 1024
+max_seq_length = 4096
 dtype = None
 
 # 4bit pre quantized models we support for 4x faster downloading + no OOMs.
@@ -72,6 +75,7 @@ model, tokenizer = FastLanguageModel.from_pretrained(
     max_seq_length = max_seq_length, # Choose any for long context!
     load_in_4bit = True,  # 4 bit quantization to reduce memory
     full_finetuning = False, # [NEW!] We have full finetuning now!
+    # use_gradient_checkpointing = True,  # Usar gradient checkpointing estándar para evitar error de CUDA driver
     # token = "hf_...", # use one if using gated models
 )
 
@@ -104,54 +108,54 @@ The `gpt-oss` models offer three distinct levels of reasoning effort you can cho
 * **High**: Provides the strongest reasoning performance for tasks that require it, though this results in higher latency.
 """
 
-from transformers import TextStreamer
+# from transformers import TextStreamer
 
-messages = [
-    {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
-]
-inputs = tokenizer.apply_chat_template(
-    messages,
-    add_generation_prompt = True,
-    return_tensors = "pt",
-    return_dict = True,
-    reasoning_effort = "low", # **NEW!** Set reasoning effort to low, medium or high
-).to("cuda")
+# messages = [
+#     {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
+# ]
+# inputs = tokenizer.apply_chat_template(
+#     messages,
+#     add_generation_prompt = True,
+#     return_tensors = "pt",
+#     return_dict = True,
+#     reasoning_effort = "low", # **NEW!** Set reasoning effort to low, medium or high
+# ).to("cuda")
 
-_ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
+# _ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
 
 """Changing the `reasoning_effort` to `medium` will make the model think longer. We have to increase the `max_new_tokens` to occupy the amount of the generated tokens but it will give better and more correct answer"""
 
-from transformers import TextStreamer
+# from transformers import TextStreamer
 
-messages = [
-    {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
-]
-inputs = tokenizer.apply_chat_template(
-    messages,
-    add_generation_prompt = True,
-    return_tensors = "pt",
-    return_dict = True,
-    reasoning_effort = "medium", # **NEW!** Set reasoning effort to low, medium or high
-).to("cuda")
+# messages = [
+#     {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
+# ]
+# inputs = tokenizer.apply_chat_template(
+#     messages,
+#     add_generation_prompt = True,
+#     return_tensors = "pt",
+#     return_dict = True,
+#     reasoning_effort = "medium", # **NEW!** Set reasoning effort to low, medium or high
+# ).to("cuda")
 
-_ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
+# _ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
 
 """Lastly we will test it using `reasoning_effort` to `high`"""
 
-from transformers import TextStreamer
+# from transformers import TextStreamer
 
-messages = [
-    {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
-]
-inputs = tokenizer.apply_chat_template(
-    messages,
-    add_generation_prompt = True,
-    return_tensors = "pt",
-    return_dict = True,
-    reasoning_effort = "high", # **NEW!** Set reasoning effort to low, medium or high
-).to("cuda")
+# messages = [
+#     {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
+# ]
+# inputs = tokenizer.apply_chat_template(
+#     messages,
+#     add_generation_prompt = True,
+#     return_tensors = "pt",
+#     return_dict = True,
+#     reasoning_effort = "high", # **NEW!** Set reasoning effort to low, medium or high
+# ).to("cuda")
 
-_ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
+# _ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
 
 """<a name="Data"></a>
 ### Data Prep
@@ -161,12 +165,24 @@ The `HuggingFaceH4/Multilingual-Thinking` dataset will be utilized as our exampl
 
 def formatting_prompts_func(examples):
     convos = examples["messages"]
-    texts = [tokenizer.apply_chat_template(convo, tokenize = False, add_generation_prompt = False) for convo in convos]
+    # Limpiar el campo 'thinking' si es None antes de aplicar el template
+    cleaned_convos = []
+    for convo in convos:
+        cleaned_convo = []
+        for msg in convo:
+            clean_msg = msg.copy()
+            # Eliminar 'thinking' si es None (causa error en el template)
+            if "thinking" in clean_msg and clean_msg["thinking"] is None:
+                del clean_msg["thinking"]
+            cleaned_convo.append(clean_msg)
+        cleaned_convos.append(cleaned_convo)
+    
+    texts = [tokenizer.apply_chat_template(convo, tokenize = False, add_generation_prompt = False) for convo in cleaned_convos]
     return { "text" : texts, }
 
 from datasets import load_dataset
 
-dataset = load_dataset("HuggingFaceH4/Multilingual-Thinking", split="train")
+dataset = load_dataset("andrewmos/indian-legal-summaries", split="train")
 dataset
 
 """To format our dataset, we will apply our version of the GPT OSS prompt"""
@@ -187,6 +203,7 @@ Now let's train our model. We do 60 steps to speed things up, but you can set `n
 """
 
 from trl import SFTConfig, SFTTrainer
+
 trainer = SFTTrainer(
     model = model,
     tokenizer = tokenizer,
@@ -195,8 +212,8 @@ trainer = SFTTrainer(
         per_device_train_batch_size = 1,
         gradient_accumulation_steps = 4,
         warmup_steps = 5,
-        # num_train_epochs = 1, # Set this for 1 full training run.
-        max_steps = 30,
+        num_train_epochs = 1, # Set this for 1 full training run.
+        # max_steps = 30,
         learning_rate = 2e-4,
         logging_steps = 1,
         optim = "adamw_8bit",
@@ -212,10 +229,11 @@ trainer = SFTTrainer(
 
 from unsloth.chat_templates import train_on_responses_only
 
-gpt_oss_kwargs = dict(instruction_part = "<|start|>user<|message|>", response_part="<|start|>assistant<|channel|>final<|message|>")
+gpt_oss_kwargs = dict(instruction_part = "<|start|>user<|message|>", response_part="<|start|>assistant<|message|>")
 
 trainer = train_on_responses_only(
     trainer,
+    num_proc = 1,  # Usar solo 1 proceso para evitar error de memoria (No paralelizar)
     **gpt_oss_kwargs,
 )
 
@@ -258,8 +276,8 @@ Let's run the model! You can change the instruction and input - leave the output
 """
 
 messages = [
-    {"role": "system", "content": "reasoning language: French\n\nYou are a helpful assistant that can solve mathematical problems."},
-    {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
+    {"role": "system", "content": "reasoning language: English\n\nYou are a legal expert AI. Your task is to provide concise and accurate summaries of legal judgments. Focus on the key facts, the legal reasoning, and the final verdict."},
+    {"role": "user", "content": dataset[0]["messages"][1]["content"]},
 ]
 inputs = tokenizer.apply_chat_template(
     messages,
@@ -269,7 +287,7 @@ inputs = tokenizer.apply_chat_template(
     reasoning_effort = "medium",
 ).to("cuda")
 from transformers import TextStreamer
-_ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
+_ = model.generate(**inputs, max_new_tokens = 1024, streamer = TextStreamer(tokenizer))
 
 """<a name="Save"></a>
 ### Saving, loading finetuned models
@@ -278,8 +296,8 @@ To save the final model as LoRA adapters, either use Huggingface's `push_to_hub`
 **[NOTE]** Currently finetunes can only be loaded via Unsloth in the meantime - we're working on vLLM and GGUF exporting!
 """
 
-model.save_pretrained("finetuned_model")
-# model.push_to_hub("hf_username/finetuned_model", token = "hf_...") # Save to HF
+# model.save_pretrained("finetuned_model")
+model.push_to_hub("andrewmos/indian-legal-summaries-finetuned-gpt-oss-20b", token = "") # Save to HF
 
 """To run the finetuned model, you can do the below after setting `if False` to `if True` in a new instance."""
 
@@ -293,8 +311,8 @@ if False:
     )
 
 messages = [
-    {"role": "system", "content": "reasoning language: French\n\nYou are a helpful assistant that can solve mathematical problems."},
-    {"role": "user", "content": "Solve x^5 + 3x^4 - 10 = 3."},
+    {"role": "system", "content": "reasoning language: English\n\nYou are a legal expert AI. Your task is to provide concise and accurate summaries of legal judgments. Focus on the key facts, the legal reasoning, and the final verdict."},
+    {"role": "user", "content": dataset[0]["messages"][1]["content"]},
 ]
 inputs = tokenizer.apply_chat_template(
     messages,
@@ -304,7 +322,7 @@ inputs = tokenizer.apply_chat_template(
     reasoning_effort = "high",
 ).to("cuda")
 from transformers import TextStreamer
-_ = model.generate(**inputs, max_new_tokens = 64, streamer = TextStreamer(tokenizer))
+_ = model.generate(**inputs, max_new_tokens = 1024, streamer = TextStreamer(tokenizer))
 
 """### Saving to float16 for VLLM or mxfp4
 
@@ -341,3 +359,7 @@ Some other links:
   This notebook and all Unsloth notebooks are licensed [LGPL-3.0](https://github.com/unslothai/notebooks?tab=LGPL-3.0-1-ov-file#readme).
 
 """
+
+end_time_total = time.time()
+total_minutes = (end_time_total - start_time_total) / 60
+print(f"Tiempo total de ejecucion del script: {total_minutes:.2f} minutos")
