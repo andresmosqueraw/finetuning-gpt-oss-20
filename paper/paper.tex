@@ -1,0 +1,523 @@
+%%
+%% This is file `sample-sigconf-authordraft.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% samples.dtx  (with options: `all,proceedings,bibtex,authordraft')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from sample-sigconf-authordraft.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file samples.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%%
+%% Commands for TeXCount
+%TC:macro \cite [option:text,text]
+%TC:macro \citep [option:text,text]
+%TC:macro \citet [option:text,text]
+%TC:envir table 0 1
+%TC:envir table* 0 1
+%TC:envir tabular [ignore] word
+%TC:envir displaymath 0 word
+%TC:envir math 0 word
+%TC:envir comment 0 0
+%%
+%% The first command in your LaTeX source must be the \documentclass
+%% command.
+%%
+%% For submission and review of your manuscript please change the
+%% command to \documentclass[manuscript, screen, review]{acmart}.
+%%
+%% When submitting camera ready or to TAPS, please change the command
+%% to \documentclass[sigconf]{acmart} or whichever template is required
+%% for your publication.
+%%
+%%
+\documentclass[sigconf]{acmart}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
+%% Rights management information.  This information is sent to you
+%% when you complete the rights form.  These commands have SAMPLE
+%% values in them; it is your responsibility as an author to replace
+%% the commands and values with those provided to you when you
+%% complete the rights form.
+\setcopyright{none}
+\acmConference[JUST-NLP 2025]{JUST-NLP 2025 Shared Task on Legal Summarization}{March 2025}{India}
+\acmYear{2025}
+\copyrightyear{2025}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+%%
+%%  Uncomment \acmBooktitle if the title of the proceedings is different
+%%  from ``Proceedings of ...''!
+%%
+%%\acmBooktitle{Woodstock '18: ACM Symposium on Neural Gaze Detection,
+%%  June 03--05, 2018, Woodstock, NY}
+
+
+%%
+%% Submission ID.
+%% Use this when submitting an article to a sponsored event. You'll
+%% receive a unique submission ID from the organizers
+%% of the event, and this ID should be used as the parameter to this command.
+%%\acmSubmissionID{123-A56-BU3}
+
+%%
+%% For managing citations, it is recommended to use bibliography
+%% files in BibTeX format.
+%%
+%% You can then either use BibTeX with the ACM-Reference-Format style,
+%% or BibLaTeX with the acmnumeric or acmauthoryear sytles, that include
+%% support for advanced citation of software artefact from the
+%% biblatex-software package, also separately available on CTAN.
+%%
+%% Look at the sample-*-biblatex.tex files for templates showcasing
+%% the biblatex styles.
+%%
+
+%%
+%% The majority of ACM publications use numbered citations and
+%% references.  The command \citestyle{authoryear} switches to the
+%% "author year" style.
+%%
+%% If you are preparing content for an event
+%% sponsored by ACM SIGGRAPH, you must use the "author year" style of
+%% citations and references.
+%% Uncommenting
+%% the next command will enable that style.
+%%\citestyle{acmauthoryear}
+
+
+%%
+%% end of the preamble, start of the body of the document source.
+\begin{document}
+
+%%
+%% The "title" command has an optional parameter,
+%% allowing the author to define a "short title" to be used in page headers.
+\title{Automatic Legal Judgment Summarization Using Large Language Models:
+A Case Study for the JUST-NLP 2025 Shared Task}
+
+%%
+%% The "author" command and its associated commands are used to define
+%% the authors and their affiliations.
+%% Of note is the shared affiliation of the first two authors, and the
+%% "authornote" and "authornotemark" commands
+%% used to denote shared contribution to the research.
+\author{Santiago Chica Castaño}
+\affiliation{%
+  \institution{Universidad de los Andes}
+}
+\email{s.chica10@uniandes.edu.co}
+
+\author{Andrés Felipe Mosquera Hernández}
+\affiliation{%
+  \institution{Universidad de los Andes}
+}
+\email{a.mosquerah2@uniandes.edu.co}
+
+\author{Josué David Briceño Urquijo}
+\affiliation{%
+  \institution{Universidad de los Andes}
+}
+\email{j.bricenou@uniandes.edu.co}
+
+\author{Fredy Alexander Chaparro Castro}
+\affiliation{%
+  \institution{Universidad de los Andes}
+}
+\email{f.chaparroc@uniandes.edu.co}
+
+
+%%
+%% The abstract is a short summary of the work to be presented in the
+%% article.
+\begin{abstract}
+This paper presents the proposal developed for the \textbf{JUST-NLP 2025 Shared Task on Legal Summarization}, which aims to generate abstractive summaries of Indian court judgments. We describe the motivation, dataset analysis, related work, and proposed methodology based on Large Language Models (LLMs). We analyze the Indian Legal Summarization (InLSum) dataset, review four relevant articles in the summarization of legal texts, and describe the experimental setup involving GPT-4.1 to evaluate the effectiveness of different prompting strategies and LLM models with finetuning. Experimental results show that our \textbf{Reward System} prompt outperformed other strategies, achieving an average score (AVG) of \textbf{0.2475}, a 60\% improvement over the baseline (AVG 0.1540). Conversely, fine-tuning a 1B parameter model showed negligible gains (AVG 0.1186) compared to its zero-shot baseline (AVG 0.1143), suggesting that advanced prompt engineering is more effective than small-scale fine-tuning for this specific task.
+\end{abstract}
+
+%%
+%% The code below is generated by the tool at http://dl.acm.org/ccs.cfm.
+%% Please copy and paste the code instead of the example below.
+%%
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010178.10010179.10010182</concept_id>
+<concept_desc>Computing methodologies~Natural language generation</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10010147.10010178.10010179.10003352</concept_id>
+<concept_desc>Computing methodologies~Information extraction</concept_desc>
+<concept_significance>300</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Natural language generation}
+\ccsdesc[300]{Computing methodologies~Information extraction}
+
+%%
+%% Keywords. The author(s) should pick words that accurately describe
+%% the work being presented. Separate the keywords with commas.
+\keywords{Prompting engineering, summarization, NLP, court judgments, LLM, finetuning}
+
+%%
+%% This command processes the author and affiliation and title
+%% information and builds the first part of the formatted document.
+\maketitle
+
+\section{Introduction}
+
+Legal professionals in Common-Law systems must review extensive judgments to identify precedents, a task that is notoriously time-consuming \citep{shukla2022legal}. Automatic summarization offers a solution to reduce this effort; however, legal texts present unique challenges: they are long, syntactically complex, and filled with citations and domain-specific terminology \citep{sharma2023comprehensive}. While recent advancements in Large Language Models (LLMs) have shown promise, standard models often hallucinate or omit key details when processing lengthy legal documents \citep{deroy2024applicability}.
+
+This paper addresses the automatic summarization of Indian court judgments as part of the \textit{JUST-NLP 2025 Shared Task on Legal Summarization}. The task involves generating abstractive summaries from a dataset of 1,200 training and 200 validation cases, with performance measured using ROUGE-2, ROUGE-L, and BLEU metrics.
+
+Our proposal explores the implementation of LLMs as a novel approach to this domain, contrasting prompt engineering against fine-tuning. We aim to: (1) test different prompting strategies, including hybrid pipelines that combine extractive and abstractive stages to improve factuality; and (2) evaluate the behavior of a fine-tuned 1B parameter LLM to determine if small-scale domain adaptation can compete with sophisticated prompting on larger models. By systematically comparing these approaches, we seek to design a system that maximizes the shared task metrics while maintaining factual consistency.
+
+\section{Dataset Description and Analysis}
+We use the \textbf{InLSum} dataset provided by the competition, containing:
+\begin{itemize}
+  \item \textbf{Train:} 1,200 judgments and 1,200 human-written summaries.
+  \item \textbf{Validation:} 200 judgments.
+  \item \textbf{Test:} 400 judgments (released later).
+\end{itemize}
+
+Each file is in JSONL format:
+\begin{adjustwidth}{1em}{0pt}
+{\fontsize{9pt}{10pt}\selectfont
+\begin{verbatim}
+{"ID": "id_100", "Judgment": "<text>"}
+{"ID": "id_100", "Summary": "<reference summary>"}
+\end{verbatim}
+}
+\end{adjustwidth}
+
+\subsection{Descriptive Statistics}
+\begin{table}[h!]
+  \centering
+  \small
+  \begin{tabular}{lcc}
+    \toprule
+     & \textbf{Judgments} & \textbf{Summaries} \\
+    \midrule
+    Avg.\ words & 7,418 & 545 \\
+    Median & 2,940 & 516 \\
+    Min / Max & 159 / 134,483 & 26 / 2,083 \\
+    Compression ratio & \multicolumn{2}{c}{26\% (avg), 18\% (median)}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Descriptive statistics of the InLSum dataset.}
+\end{table}
+
+Documents show large variance: judgments are heterogeneous and lengthy, while summaries are more uniform and predictable.  
+Lexical patterns (case numbers, articles, sections, petitioner/respondent, dates) appear consistently in both sets, confirming structural alignment.
+
+
+\section{Related Work}
+
+\subsection{MILDSum (Datta et al., 2023)}
+\citet{datta2023mildsum} introduced a bilingual English–Hindi legal corpus for summarization, enabling cross-lingual evaluation.
+Their work demonstrates that domain-specific datasets built with legal rigor improve supervised and abstractive training quality in multilingual contexts.
+
+\subsection{Comprehensive Analysis (Sharma et al., 2023)}
+\citet{sharma2023comprehensive} conducted a comprehensive comparison of BART, Longformer, and Legal-Pegasus on Indian court judgments.  
+Their study found that Legal-Pegasus achieved the highest ROUGE-F1 score of approximately $0.3$, showing that pretrained legal models outperform general-purpose models when fine-tuned.
+
+\subsection{Applicability of LLMs (Deroy et al., 2024)}
+\citet{deroy2024applicability} presented one of the first evaluations of GPT-3.5 and GPT-4 against domain-specific legal models.  
+They found that while LLMs outperform traditional extractive baselines, they often hallucinate or omit key details, highlighting the need for hybrid extractive–abstractive pipelines and chunking strategies to maintain factual consistency. The cited work, however, did not explore the role of prompting strategies in improving performance or avoiding hallucination. Our proposal is intended to delineate the potential of this important LLM characteristic.
+
+\subsection{Legal Case Document Summarization (Shukla et al., 2022)}
+\citet{shukla2022legal} benchmarked multiple extractive and abstractive methods, including SummaRuNNer, Legal-Pegasus, and Longformer, on Indian case law.  
+They emphasized the effectiveness of chunking and hybridization techniques for summarizing long and complex legal judgments.
+
+\subsection{Transformer-Based Summarization Models}
+Several transformer architectures have been influential for long-document summarization tasks.  
+\citet{lewis2020bart} proposed \textbf{BART}, a denoising sequence-to-sequence pre-training approach that remains a key baseline for generative summarization.  
+\citet{beltagy2020longformer} introduced the \textbf{Longformer} model, designed for long-context encoding through sliding-window attention mechanisms, which significantly improves scalability on multi-thousand-token legal texts.  
+Similarly, \citet{bajaj2021longdocument} explored low-resource long-document summarization using pretrained language models, providing valuable insights into resource-efficient setups relevant for the Indian legal domain.
+
+\subsection{Summary of Insights}
+Across these studies, several consistent findings emerge:
+(i) domain adaptation and legal-specific corpus improve the ROUGE and BLEU metrics,  
+(ii) hybrid extractive–abstractive designs mitigate hallucination and improve factual faithfulness, and
+(iii) attention-efficient transformers and LLMs now define the state of the art for long legal texts.
+
+\section{Proposed Methodology}
+
+\subsection{Overview}
+We follow a quantitative experimental design using LLMs with structured prompting and multi-agent flows.
+
+\subsection{Prompting Strategies}
+\paragraph{Prompt Families}
+We designed and evaluated several prompt families:
+\begin{itemize}
+  \item \textbf{Simple baseline}: Employing "\emph{Tl;Dr}" as a simple prompt to establish a comparative starting point for evaluating more complex instruction sets.
+  \item \textbf{Few-shot}: Introduces the task with a focus on metric maximization, followed by an outline that specifies the target compression ratio, sentence length, and legal term preservation ratio. Three example judgment/summary pairs are then supplied to guide the model on the correct structure, phrasing, order, and span length of the final output.
+  \item \textbf{Reward System (winning prompt)}: scoring system with progressive rewards for longer exact sequences (5–7/8–10/11–15/16+ words), contextual multipliers for first/last sentence placement, explicit bonuses for legal transition phrases (\enquote{held that}, \enquote{observed that}, \enquote{dismissed the appeal}), \emph{density targets} for bigrams/trigrams and legal-term rate, a \emph{hierarchy of penalties} (critical/high/medium/low), and \emph{anti-hallucination} rules. It also includes structural scoring for opening/body/closing. Target length \(\approx\)500 words (\(\pm\)10\%). This prompt achieved the best validation scores across ROUGE-2, ROUGE-L, and BLEU.
+  \item \textbf{Multi-Agentic approach}: We implemented multiple structured prompts, each set up for a specific subtask, to help extract the text's individual features for analysis (details follow in the next section).
+\end{itemize}
+
+\subsection{Multi-Agent Architecture}
+We implemented multiple architectural approaches, to explore different strategies for legal summarization. Each approach uses a state graph with autonomous agents handling different sub-tasks, and an orchestrator managing the workflow.
+
+\textbf{Approach 1 – Basic Extract/Abstract Pipeline:}  A two-stage setup. \emph{Extraction} copies literal spans into a structured schema (court, date, parties, counsel, facts, issues, arguments, decision, reasoning, orders, citations). \emph{Abstraction} assembles the final summary by concatenating verbatim phrases (typically 450–550 words), prioritizing long n-grams and exact terminology to maximize ROUGE-L and BLEU. Our approach is inspired by \citet{deroy2024applicability}, but our methodology employs LLMs for both stages of the summarization pipeline. This contrasts with the cited work, which utilized established extractive techniques, i.e., CaseSummarizer, BertSum, and SummaRunner, in its initial extractive phase.
+
+\textbf{Approach 2 – Domain-Aware Pipeline:} This three-stage pipeline incorporates legal domain classification as a preliminary step. First, an agent classifies the judgment into a specific legal domain (criminal, civil, constitutional, etc.). Then, domain-specific characteristics (section order patterns, typical section lengths) guide the extraction and abstraction stages. This approach leverages domain expertise to improve section-specific summarization.
+
+\textbf{Approach 3 – 20-Stage Sequential Pipeline:} This comprehensive pipeline decomposes the summarization task into 10 legal sub-tasks, each processed in two stages (extraction followed by abstraction). The sub-tasks are: (1) Case Heading, (2) Background/Facts, (3) Procedural History, (4) Parties' Arguments, (5) Judicial Reasoning, (6) Decision/Orders, (7) Citations/Authorities, (8) Counsel Representation, (9) Policy Commentary, and (10) Temporal Directives. A final synthesis agent combines all partial summaries into a coherent final summary, optimizing for maximum BLEU through 4-gram matching strategies.
+
+\subsection{Finetuning LLM strategy}
+This strategy aims to evaluate whether summary generation metrics can be improved using a Gemma-3 model with 1B parameters. The objective is also to assess how the application of FineTuning to this model can enhance its performance and to compare the implementation of the base model with the implementation using FineTuning. To implement this strategy, the following steps are followed:
+
+\begin{enumerate}
+    \item \textbf{Data preparation:} a dataset is built in ChatTemplate format, where the legal texts are combined with the reference summaries, to train the Instruction-tuning model. This format has the following body:
+    \begin{verbatim}
+[
+  {
+    "role": "user", 
+    "content": "<judgment text>"
+  },
+  {
+    "role": "assistant", 
+    "content": "<summary text>"
+  }
+]
+\end{verbatim}
+    The instruction that the model must perform is applied here; the input is the content to which the instruction should be applied, and the output is the expected response. Therefore, this instruction focuses on obtaining key facts, legal reasoning, and the final verdict.
+
+    This format also helps improve performance with supervised fine tuning and frameworks like LoRa.
+
+These same data are then used to generate 80% training data and 20% test data, which are then used to train the model.
+    \item \textbf{Baseline model evaluation:} First, an approach is taken by applying an unsloth/gemma-3-1b-it-unsloth-bnb-4bit model without finetuning to evaluate the performance of the original model, and metrics (ROUGE, BLEU) are calculated for subsequent comparisons. This is applied to approximately 240 test documents.
+    \item \textbf{Evaluation of the fine-tuned model:}  Unsloth + Lora is then applied to train the model with fine tuning on 80\% of the training data, performing SFT training for 1 epoch. We employ \emph{train\_on\_responses\_only} to mask the user instructions in the loss calculation, focusing the model solely on summary generation.
+    For the inference stage, we implemented a \emph{"Best of N"} strategy (N=3) with temperature sampling. The selection of the best candidate is \textbf{reference-guided} (Oracle): we generate up to three variations (greedy, temp=0.7, temp=0.9) and select the one maximizing the ROUGE score against the validation reference summary. This ensures the evaluation captures the model's peak capability.
+\end{enumerate}
+
+
+\textbf{fine tuning model parameters:}
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{resource} & \textbf{Recommended value}\\
+\midrule
+GPU & NVIDIA A40 — 24 GB\\
+Model & Gemma-3-1B-IT (Unsloth 4-bit)\\
+Max Context & 8,000–8,096\\
+Effective Batch Size & 8 – 16\\
+LR & 1e-4 – 2e-4\\
+Epochs & 1\\
+LoRA (r / α) & r=8, α=8\\
+Optimizer & adamw_8bit\\
+Dropout LoRA & 0\\
+\bottomrule
+\end{tabular}
+\caption{Parameters defined according to Gemma documentation recommendations}
+\label{tab:results}
+\end{table}
+
+\section{Results}
+\subsection{Validation Setup}
+All results are computed on the official validation split (200 cases). Unless noted, we use GPT-4.1, target length $500\pm10\%$, and a fixed set of parameters: 1024 maximum tokens, 0.18 temperature, and top-p of 0.3. The \textbf{Reward System} prompt (from Fig.~\ref{fig:reward}) explicitly rewards verbatim multi-word spans and their placement (first/last sentence), and boosts legal transition phrases (``held that'', ``dismissed the appeal'', etc.).
+
+\begin{figure}[H]
+  \centering
+  \fbox{\begin{minipage}{0.9\columnwidth}
+  \centering
+  \textbf{Reward System — schematic prompt layout}\\[3pt]
+  \rule{0.9\columnwidth}{0.3pt}\\[3pt]
+  Progressive reward tiers for 5–16+ word spans,
+  contextual multipliers (first/last sentence),
+  bonuses for legal transitions (\emph{held that}, \emph{dismissed the appeal}), 
+  and anti-hallucination penalties.
+  \end{minipage}}
+  \caption{Schematic of the \textbf{Reward System} prompt (scoring-based instructions).}
+  \Description{A schematic diagram showing the Reward System prompt structure. It lists progressive reward tiers for spans of 5 to 16+ words, contextual multipliers for the first and last sentences, bonuses for legal transitions like "held that" and "dismissed the appeal", and penalties for hallucinations. It also defines a structure of Opening, Body, and Closing.}
+  \label{fig:reward}
+\end{figure}
+
+\subsection{Prompting Results}
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Approach} & \textbf{R-2} & \textbf{R-L} & \textbf{BLEU} & \textbf{AVG}\\
+\midrule
+Simple (control) & 0.1744 & 0.2161 & 0.0714 & 0.1540\\
+Extract/Abstract & 0.2197 & 0.2369 & 0.1593 & 0.2053\\
+Domain-Aware & 0.2598 & 0.2692 & 0.1776 & 0.2062\\
+20-Stage Sequential & 0.2479 & 0.2655 & 0.1690 & 0.2039\\
+Few-Shot & 0.2443 & 0.2611 & 0.1611 & 0.2222\\
+\textbf{Reward System} & \textbf{0.2710} & \textbf{0.2717} & \textbf{0.1999} & \textbf{0.2475}\\
+\bottomrule
+\end{tabular}
+\caption{Validation results on InLSum. AVG is the arithmetic mean of ROUGE-2, ROUGE-L, and BLEU. Best in bold.}
+\label{tab:results}
+\end{table}
+
+\noindent \textbf{Takeaways.} (i) The Reward System yields the best scores across all metrics, representing an average increase of approximately 60\% compared to the control prompt. This confirms that explicitly rewarding long exact spans effectively increases both lexical overlap (ROUGE-L) and precision (BLEU). (ii) Domain-aware guidance provides a consistent gain over the basic control prompt. (iii) The Few-Shot prompt significantly improves performance, yielding a 44\% increase over the control prompt, but it is less efficient due to its token usage being three times higher than the baseline.
+
+
+\subsection{Fine-tuning Results}
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+\textbf{Model} & \textbf{R-2} & \textbf{R-L} & \textbf{BLEU} & \textbf{AVG}\\
+\midrule
+Gemma-3 1B (Base) & 0.1179 & 0.1798 & 0.0451 & 0.1143\\
+Gemma-3 1B (Fine-tuned) & 0.1189 & 0.1898 & 0.0470 & 0.1186\\
+\bottomrule
+\end{tabular}
+\caption{Comparison between the base model (zero-shot) and the fine-tuned model with reference-guided retry. AVG is the arithmetic mean of ROUGE-2, ROUGE-L, and BLEU.}
+\label{tab:results_ft}
+\end{table}
+
+\noindent The fine-tuning process, combined with the reference-guided retry strategy, is expected to adapt the general capabilities of Gemma-3 to the specific structure and terminology of Indian legal judgments. The comparison highlights the impact of domain adaptation (SFT) versus the base model's zero-shot performance.
+
+
+
+\section{Evaluation}
+Evaluation will be conducted using the metrics defined in the JUST-NLP 2025 Shared Task instructions.
+Validation inferences are generated by a dedicated pipeline that automates the summarization process, including prompt configuration, retry logic with adaptive chunking and sanitization for content filtering failures, and final export of submission artifacts.
+
+The final competition score is the arithmetic mean of ROUGE-2, ROUGE-L, and BLEU.
+
+\section{Conclusion and Future Work}
+This paper presented our system for the \textbf{JUST-NLP 2025 Shared Task on Legal Summarization}, focusing on hybrid extractive–\\abstractive pipelines and LLM-based prompting strategies for summarizing Indian court judgments.  
+We analyzed the InLSum dataset and implemented multiple architectures in LangGraph, including basic, domain-aware, and multi-agent pipelines.  
+Our experiments showed that the proposed \textbf{Reward System} prompt achieved the highest validation performance across all metrics (ROUGE-2, ROUGE-L, BLEU), confirming the benefit of explicitly rewarding long verbatim spans and legal transition phrases.
+
+Beyond quantitative improvements, our results highlight that \textbf{structured prompting} and \textbf{hybrid reasoning flows} can significantly enhance factual consistency without fine-tuning large models.  
+These insights can guide future research in integrating LLMs into judicial and policy-document summarization tasks.
+
+
+\section*{Limitations}
+\begin{itemize}
+    \item The evaluation is currently restricted to n-gram based metrics, which are inadequate for validating crucial qualities like coherence and factual accuracy (hallucination detection), as noted by \citet{deroy2024applicability}.
+    \item The generation process utilized a fixed set of hyperparameters: 1024 maximum tokens, a temperature of 0.18, and a top-p value of 0.3. Optimizing or exploring the efficacy of alternative parameter subsets was beyond the scope of this investigation.
+    \item The current methodology is limited by relying on a single closed-source LLM. To improve the generalization and validity of the approach, these results must be contrasted with those derived from both additional proprietary and open-source models.
+    
+\end{itemize}
+
+\subsection*{Future Work}
+In future work, we plan to:
+\begin{itemize}
+  \item Investigate the impact of using diverse LLM architectures (closed and open-source) and conduct hyperparameter optimization to find an ideal configuration for legal summarization.
+  \item Employ domain experts for a qualitative assessment of factual accuracy and user preference to effectively identify model hallucinations.
+  \item Explore Retrieval-Augmented Generation (RAG) and memory-based LLM architectures to accurately summarize long legal documents.
+\end{itemize}
+
+The final objective is to develop a system that helps legal professionals by turning complex judgments into concise and accurate summaries they can understand and verify, making the whole process transparent and controllable.
+
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{custom}
+
+% For review anonymity, comment out the appendix with names if needed.
+% \appendix
+% \section{Team Members (for non-anonymous version)}
+% \begin{itemize}
+% \item Santiago Chica – s.chica10@uniandes.edu.co
+% \item Andres Mosquera-Hernandez – a.mosquerah2@uniandes.edu.co
+% \item Fredy Chaparro C. – f.chaparroc@uniandes.edu.co
+% \item David Briceño – j.bricenou@uniandes.edu.co
+% \end{itemize}
+
+\clearpage
+\appendix
+
+\section{Prompt Templates Used}
+
+\subsection{Reward System (Winning Prompt)}
+\noindent The best-performing configuration, Reward System, applied a progressive scoring scheme with contextual bonuses and anti-hallucination rules. A simplified excerpt is shown below:
+
+\begin{quote}\small
+\textbf{ADVANCED SCORING SYSTEM V2 (Target: 500+ points)}  
+\textbf{Progressive Rewards:}  
++10 for 5–7 word sequences; +15 for 8–10 (50\% bonus); +20 for 11–15 (100\% bonus); +25 for 16+ (150\% bonus).  
+
+\textbf{Contextual Multipliers:}  
+×2.0 in first sentence, ×1.5 in last sentence, ×1.3 for transitions (\enquote{held that}, \enquote{observed that}, \enquote{dismissed the appeal}).  
+
+\textbf{Penalties:}  
+-200 fabricated facts; -75 paraphrasing; -35 partial quotes; -15 stylistic drift.
+
+\textbf{Structure:}  
+Opening (Court, Date, Parties) → Body (Facts, Issues, Arguments, Reasoning) → Closing (Decision, Orders).  
+Target $\approx$ 500 words ($\pm$10\%).
+\end{quote}
+
+\vspace{3pt}
+\noindent\textbf{Anti-hallucination and Output Rules:}
+\begin{itemize}\setlength\itemsep{1pt}
+  \item Copy only from judgment text (no paraphrasing or invention).
+  \item Maintain punctuation, capitalization, and terminology.
+  \item Avoid connectors beyond “and” or periods.
+\end{itemize}
+
+\subsection{Hybrid Pipeline – Extraction Prompt}
+\begin{quote}\small
+\textbf{Goal:} Copy literal text segments from judgments into a structured JSON schema.  
+\textbf{Guidelines:}  
+\begin{itemize}\setlength\itemsep{1pt}
+  \item Extract full sentences for Facts, Arguments, and Reasoning.  
+  \item Preserve exact legal terminology (e.g., \enquote{appellant}, \enquote{respondent}).  
+  \item Keep procedural phrases (\enquote{filed a petition}, \enquote{argued that}).  
+\end{itemize}
+
+\textbf{Output Schema:}  
+\texttt{\{Court, Date, Parties, Counsel, Facts, Issues, Arguments, Decision, Reasoning, Orders, Citations\}}
+\end{quote}
+
+\subsection{Hybrid Pipeline – Abstraction Prompt}
+\begin{quote}\small
+\textbf{Objective:} Produce a 450–550 word summary using only extracted text.  
+
+\textbf{Constraints:}  
+\begin{itemize}\setlength\itemsep{1pt}
+  \item Every word must come from extracted fields.  
+  \item No elaboration, synonyms, or paraphrasing.  
+  \item Maintain original sentence structures.  
+\end{itemize}
+
+\textbf{Assembly Order:}  
+Court/Date/Parties → Facts → Issues → Arguments → Decision → Reasoning → Orders.  
+
+\textbf{Optimization:}  
+Maximize n-gram overlap for ROUGE-L/BLEU; minimize lexical diversity.  
+\end{quote}
+
+\subsection{Simple Baseline Prompt}
+\begin{quote}\small
+\texttt{Tl;Dr}  
+\texttt{\{text\}}  
+
+A minimal baseline prompt inspired by \citet{deroy2024applicability}, with no constraints or structure.
+\end{quote}
+\end{document}
+\endinput
+%%
+%% End of file `sample-sigconf-authordraft.tex'.
