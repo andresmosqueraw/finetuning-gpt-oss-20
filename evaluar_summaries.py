@@ -9,7 +9,7 @@ from tqdm import tqdm
 # ------------------------------------------------------------
 # CONFIGURACIÓN
 # ------------------------------------------------------------
-jsonl_file = "summaries_con_finetuning.jsonl"
+jsonl_file = "summaries_sin_finetuning.jsonl"
 dataset_name = "andrewmos/indian-legal-summaries-alpaca-format"
 
 # ------------------------------------------------------------
