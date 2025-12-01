@@ -9,7 +9,7 @@ from transformers import AutoTokenizer
 
 MODEL_NAME = "unsloth/gemma-3-1b-it-unsloth-bnb-4bit"
 HF_DATASET_NAME = "andrewmos/indian-legal-summaries-chat-chunked"
-HF_TOKEN = "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"   # ← coloca tu token aquí
+HF_TOKEN = ""   # ← coloca tu token aquí
 
 CHUNK_SIZE = 6500     # tokens por chunk
 OVERLAP = 200         # tokens de solapamiento
