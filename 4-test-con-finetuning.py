@@ -34,8 +34,8 @@ HF_DATASET_NAME: str = "andrewmos/indian-legal-summaries-chat-template"
 MODEL_NAME: str = "andrewmos/gemma-3-1b-legal-summaries-finetuned"
 MAX_NEW_TOKENS: int = 1024
 MAX_INPUT_TOKENS: int = 8000
-jsonl_file: str = "summaries_con_finetuning.jsonl"
-QUALITY_THRESHOLD: float = 0.00  # Umbral de calidad
+jsonl_file: str = "summaries_con_finetuning_prueba.jsonl"
+QUALITY_THRESHOLD: float = 0.01  # Umbral de calidad
 
 # ------------------------------------------------------------
 # 3. FUNCIONES DE LIMPIEZA
